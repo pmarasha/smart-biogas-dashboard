@@ -170,6 +170,38 @@ button:hover {
     color: #38bdf8;
   }
 }
+
+/* Ultra-responsive for very small landscape phones */
+@media (max-width: 480px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+  }
+  header img {
+    position: static;
+    margin: 0;
+    height: 40px;
+  }
+  header h1 {
+    font-size: 1em;
+    margin: 0 5px;
+    text-align: center;
+    flex: 1;
+  }
+  #time {
+    position: static;
+    font-size: 0.85em;
+    margin: 0;
+  }
+}
+
+/* Center QR code */
+#qr {
+  display:block;
+  margin:10px auto;
+}
 </style>
 </head>
 
