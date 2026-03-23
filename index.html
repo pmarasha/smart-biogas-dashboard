@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SIRDC Biogas AI Digital Twin</title>
+<title>SIRDC Biogas Digester Monitoring System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 <style>
-/* Full dashboard styling */
 body { font-family: Arial,sans-serif; margin:0; background: linear-gradient(135deg,#020617,#1e3a8a); color:white; }
 header { display:flex; justify-content:center; align-items:center; position:relative; padding:12px; background:rgba(0,0,0,0.6); box-shadow:0 0 25px #22c55e; }
 header img { position:absolute; left:15px; height:55px; }
@@ -18,14 +17,14 @@ header h1 { margin:0; text-align:center; }
 .summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
 .card { background:rgba(255,255,255,0.05); padding:10px; border-radius:12px; text-align:center; }
 .flow { display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; }
-.box { padding:15px; background:rgba(255,255,255,0.1); border-radius:10px; }
-.pipe { width:80px; height:10px; background:#1e293b; overflow:hidden; position:relative; }
+.box { padding:15px; background:rgba(255,255,255,0.1); border-radius:10px; text-align:center; flex:1; margin:5px; }
+.pipe { width:80px; height:10px; background:#1e293b; overflow:hidden; position:relative; margin:5px 0; }
 .pipe-bubble { position:absolute; width:8px; height:8px; background:#22c55e; border-radius:50%; animation:flow linear infinite; }
 @keyframes flow { 0%{left:-20px;} 100%{left:100%;} }
 .digester { margin-top:10px; }
 canvas { background:rgba(255,255,255,0.1); border-radius:10px; margin-top:8px; }
 .ai-panel { background:rgba(0,0,0,0.5); padding:10px; border-radius:10px; margin-top:10px; color:#22c55e; }
-#presentationBox { border:2px solid #22c55e; box-shadow:0 0 15px #22c55e; }
+#presentationBox { border:2px solid #22c55e; box-shadow:0 0 15px #22c55e; padding:10px; border-radius:10px; }
 footer { text-align:center; padding:10px; color:#94a3b8; }
 button { padding:8px 15px; margin:5px; background:#22c55e; border:none; border-radius:8px; color:white; font-weight:bold; cursor:pointer; }
 button:hover { background:#16a34a; }
@@ -36,7 +35,7 @@ button:hover { background:#16a34a; }
 
 <header>
 <img src="sirdc-logo.jpg">
-<h1>SIRDC Biogas AI Digital Twin</h1>
+<h1>SIRDC Biogas Digester Monitoring System</h1>
 <div id="time"></div>
 </header>
 
@@ -64,7 +63,7 @@ button:hover { background:#16a34a; }
 <div class="section" id="presentationBox">
 <h2>System Demonstration</h2>
 <div id="presentationText" style="font-size:18px; text-align:center; padding:15px; background:rgba(0,0,0,0.5); border-radius:10px;">
-Welcome to the SIRDC Biogas AI System
+Welcome to the SIRDC Biogas Digester Monitoring System
 </div>
 </div>
 
@@ -79,11 +78,11 @@ Welcome to the SIRDC Biogas AI System
 <button onclick="toggleFullScreen()">Full Screen Demo</button>
 </div>
 
-<footer>SIRDC Smart Systems | AI Renewable Energy Monitoring</footer>
+<footer>SIRDC Smart Systems | Biogas Digester Monitoring</footer>
 
 <script>
 // CONFIG
-const DASHBOARD_LAUNCHER_URL = "https://USERNAME.github.io/smart-biogas-dashboard/"; // <-- replace USERNAME
+const DASHBOARD_LAUNCHER_URL = "https://pmarasha.github.io/smart-biogas-dashboard/";
 
 // DIGESTERS DATA
 let digesters={1:{t:35,g:2.5},2:{t:35,g:2.5},3:{t:35,g:2.5}};
@@ -142,7 +141,7 @@ setInterval(()=>{document.getElementById("time").innerHTML=new Date().toLocaleSt
 
 // ROTATING PRESENTATION
 let demoMessages = [
-"Welcome to the SIRDC Biogas AI Digital Twin System",
+"Welcome to the SIRDC Biogas Digester Monitoring System",
 "This system converts waste into renewable energy",
 "Real-time monitoring tracks temperature and gas production",
 "AI predicts system behavior and detects risks early",
