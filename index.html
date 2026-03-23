@@ -8,96 +8,26 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin:0;
-    background: linear-gradient(135deg,#020617,#1e3a8a);
-    color:white;
-}
-
-/* HEADER */
-header {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position:relative;
-    padding:12px;
-    background:rgba(0,0,0,0.6);
-    box-shadow:0 0 25px #22c55e;
-}
-header img {
-    position:absolute;
-    left:15px;
-    height:55px;
-}
-header h1 { margin:0; }
+/* Full dashboard styling */
+body { font-family: Arial,sans-serif; margin:0; background: linear-gradient(135deg,#020617,#1e3a8a); color:white; }
+header { display:flex; justify-content:center; align-items:center; position:relative; padding:12px; background:rgba(0,0,0,0.6); box-shadow:0 0 25px #22c55e; }
+header img { position:absolute; left:15px; height:55px; }
+header h1 { margin:0; text-align:center; }
 #time { position:absolute; right:15px; color:#38bdf8; }
-
-/* SECTIONS */
-.section {
-    margin:15px;
-    padding:15px;
-    border-radius:15px;
-    background:rgba(255,255,255,0.05);
-}
-
-.summary {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-    gap:10px;
-}
-.card {
-    background:rgba(255,255,255,0.05);
-    padding:10px;
-    border-radius:12px;
-    text-align:center;
-}
-
-/* FLOW */
-.flow {
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    align-items:center;
-}
+.section { margin:15px; padding:15px; border-radius:15px; background:rgba(255,255,255,0.05); }
+.summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+.card { background:rgba(255,255,255,0.05); padding:10px; border-radius:12px; text-align:center; }
+.flow { display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; }
 .box { padding:15px; background:rgba(255,255,255,0.1); border-radius:10px; }
 .pipe { width:80px; height:10px; background:#1e293b; overflow:hidden; position:relative; }
 .pipe-bubble { position:absolute; width:8px; height:8px; background:#22c55e; border-radius:50%; animation:flow linear infinite; }
 @keyframes flow { 0%{left:-20px;} 100%{left:100%;} }
-
-/* DIGESTERS */
 .digester { margin-top:10px; }
 canvas { background:rgba(255,255,255,0.1); border-radius:10px; margin-top:8px; }
-
-/* AI PANEL */
-.ai-panel {
-    background:rgba(0,0,0,0.5);
-    padding:10px;
-    border-radius:10px;
-    margin-top:10px;
-    color:#22c55e;
-}
-
-/* PRESENTATION BOX */
-#presentationBox {
-    border:2px solid #22c55e;
-    box-shadow:0 0 15px #22c55e;
-}
-
-/* FOOTER */
+.ai-panel { background:rgba(0,0,0,0.5); padding:10px; border-radius:10px; margin-top:10px; color:#22c55e; }
+#presentationBox { border:2px solid #22c55e; box-shadow:0 0 15px #22c55e; }
 footer { text-align:center; padding:10px; color:#94a3b8; }
-
-/* BUTTONS */
-button {
-    padding:8px 15px;
-    margin:5px;
-    background:#22c55e;
-    border:none;
-    border-radius:8px;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
+button { padding:8px 15px; margin:5px; background:#22c55e; border:none; border-radius:8px; color:white; font-weight:bold; cursor:pointer; }
 button:hover { background:#16a34a; }
 </style>
 </head>
@@ -105,15 +35,15 @@ button:hover { background:#16a34a; }
 <body>
 
 <header>
-    <img src="sirdc-logo.jpg">
-    <h1>SIRDC Biogas AI Digital Twin</h1>
-    <div id="time"></div>
+<img src="sirdc-logo.jpg">
+<h1>SIRDC Biogas AI Digital Twin</h1>
+<div id="time"></div>
 </header>
 
 <div class="section summary">
-    <div class="card">Total Gas<br><span id="totalGas">0</span></div>
-    <div class="card">Avg Temp<br><span id="avgTemp">0</span></div>
-    <div class="card">System Status<br><span id="status">Normal</span></div>
+<div class="card">Total Gas<br><span id="totalGas">0</span></div>
+<div class="card">Avg Temp<br><span id="avgTemp">0</span></div>
+<div class="card">System Status<br><span id="status">Normal</span></div>
 </div>
 
 <div class="section">
@@ -132,15 +62,10 @@ button:hover { background:#16a34a; }
 <div class="section" id="digesters"></div>
 
 <div class="section" id="presentationBox">
-    <h2>System Demonstration</h2>
-    <div id="presentationText" style="
-        font-size:18px;
-        text-align:center;
-        padding:15px;
-        background:rgba(0,0,0,0.5);
-        border-radius:10px;">
-        Welcome to the SIRDC Biogas AI System
-    </div>
+<h2>System Demonstration</h2>
+<div id="presentationText" style="font-size:18px; text-align:center; padding:15px; background:rgba(0,0,0,0.5); border-radius:10px;">
+Welcome to the SIRDC Biogas AI System
+</div>
 </div>
 
 <div class="section">
@@ -154,113 +79,68 @@ button:hover { background:#16a34a; }
 <button onclick="toggleFullScreen()">Full Screen Demo</button>
 </div>
 
-<footer>
-SIRDC Smart Systems | AI Renewable Energy Monitoring
-</footer>
+<footer>SIRDC Smart Systems | AI Renewable Energy Monitoring</footer>
 
 <script>
-// =================== CONFIGURABLE QR URL ===================
-const DASHBOARD_LAUNCHER_URL = "https://your-online-launcher-link.com"; // <-- set your hosted launcher here
-// ============================================================
+// CONFIG
+const DASHBOARD_LAUNCHER_URL = "https://USERNAME.github.io/smart-biogas-dashboard/"; // <-- replace USERNAME
 
 // DIGESTERS DATA
 let digesters={1:{t:35,g:2.5},2:{t:35,g:2.5},3:{t:35,g:2.5}};
 let gasCharts={}, tempCharts={};
 let container=document.getElementById("digesters");
 
-// CREATE DIGESTERS UI
+// CREATE DIGESTERS
 for(let i=1;i<=3;i++){
-    container.innerHTML += `
-    <div class="digester">
-        <h3>Digester ${i}</h3>
-        Temp: <span id="t${i}"></span> °C |
-        Gas: <span id="g${i}"></span>
-        <canvas id="gc${i}"></canvas>
-        <canvas id="tc${i}"></canvas>
-    </div>`;
+container.innerHTML += `
+<div class="digester">
+<h3>Digester ${i}</h3>
+Temp: <span id="t${i}"></span> °C |
+Gas: <span id="g${i}"></span>
+<canvas id="gc${i}"></canvas>
+<canvas id="tc${i}"></canvas>
+</div>`;
 }
 
 // INIT CHARTS
 for(let i=1;i<=3;i++){
-    let gc = document.getElementById("gc"+i).getContext("2d");
-    let tc = document.getElementById("tc"+i).getContext("2d");
+let gc=document.getElementById("gc"+i).getContext("2d");
+let tc=document.getElementById("tc"+i).getContext("2d");
 
-    gasCharts[i] = new Chart(gc,{
-        type:'line',
-        data:{labels:[],datasets:[{data:[],borderWidth:2}]},
-        options:{animation:false,responsive:true}
-    });
-
-    tempCharts[i] = new Chart(tc,{
-        type:'line',
-        data:{labels:[],datasets:[{data:[],borderWidth:2}]},
-        options:{animation:false,responsive:true}
-    });
+gasCharts[i]=new Chart(gc,{type:'line',data:{labels:[],datasets:[{data:[],borderWidth:2}]},options:{animation:false,responsive:true}});
+tempCharts[i]=new Chart(tc,{type:'line',data:{labels:[],datasets:[{data:[],borderWidth:2}]},options:{animation:false,responsive:true}});
 }
 
 // BUBBLES
-function bubbles(id){
-    let p=document.getElementById(id);
-    p.innerHTML="";
-    for(let i=0;i<3;i++){
-        let b=document.createElement("div");
-        b.className="pipe-bubble";
-        b.style.animationDuration=(1+Math.random()*2)+"s";
-        p.appendChild(b);
-    }
-}
-
-// UPDATE SIMULATION
+function bubbles(id){let p=document.getElementById(id);p.innerHTML="";for(let i=0;i<3;i++){let b=document.createElement("div");b.className="pipe-bubble";b.style.animationDuration=(1+Math.random()*2)+"s";p.appendChild(b);}}
 function update(){
-    let tg=0, tt=0, status="Normal";
-    for(let i=1;i<=3;i++){
-        let d=digesters[i];
-        d.t += (Math.random()-0.5);
-        d.g += (Math.random()-0.5)*0.1;
-
-        document.getElementById("t"+i).innerHTML=d.t.toFixed(1);
-        document.getElementById("g"+i).innerHTML=d.g.toFixed(2);
-
-        tg+=d.g; tt+=d.t;
-
-        gasCharts[i].data.labels.push("");
-        gasCharts[i].data.datasets[0].data.push(d.g);
-        if(gasCharts[i].data.labels.length>15){
-            gasCharts[i].data.labels.shift();
-            gasCharts[i].data.datasets[0].data.shift();
-        }
-        gasCharts[i].data.datasets[0].borderColor = d.g>3?'red':'lime';
-        gasCharts[i].update();
-
-        tempCharts[i].data.labels.push("");
-        tempCharts[i].data.datasets[0].data.push(d.t);
-        if(tempCharts[i].data.labels.length>15){
-            tempCharts[i].data.labels.shift();
-            tempCharts[i].data.datasets[0].data.shift();
-        }
-        tempCharts[i].data.datasets[0].borderColor = d.t>38?'red':'cyan';
-        tempCharts[i].update();
-
-        if(d.t>38) status="Warning";
-    }
-
-    document.getElementById("totalGas").innerHTML=(tg/3).toFixed(2);
-    document.getElementById("avgTemp").innerHTML=(tt/3).toFixed(1);
-    document.getElementById("status").innerHTML=status;
-    document.getElementById("tank").style.background = status==="Warning"?"red":"green";
-    bubbles("p1"); bubbles("p2"); bubbles("p3");
-
-    let ai="System stable.";
-    if(status==="Warning") ai="AI Alert: Temperature rising. Cooling recommended.";
-    if(tg>3) ai="AI Insight: Gas production optimal.";
-    document.getElementById("aiText").innerHTML=ai;
+let tg=0, tt=0, status="Normal";
+for(let i=1;i<=3;i++){
+let d=digesters[i];
+d.t += (Math.random()-0.5);
+d.g += (Math.random()-0.5)*0.1;
+document.getElementById("t"+i).innerHTML=d.t.toFixed(1);
+document.getElementById("g"+i).innerHTML=d.g.toFixed(2);
+tg+=d.g; tt+=d.t;
+gasCharts[i].data.labels.push(""); gasCharts[i].data.datasets[0].data.push(d.g);
+if(gasCharts[i].data.labels.length>15){gasCharts[i].data.labels.shift(); gasCharts[i].data.datasets[0].data.shift();}
+gasCharts[i].data.datasets[0].borderColor=d.g>3?'red':'lime'; gasCharts[i].update();
+tempCharts[i].data.labels.push(""); tempCharts[i].data.datasets[0].data.push(d.t);
+if(tempCharts[i].data.labels.length>15){tempCharts[i].data.labels.shift(); tempCharts[i].data.datasets[0].data.shift();}
+tempCharts[i].data.datasets[0].borderColor=d.t>38?'red':'cyan'; tempCharts[i].update();
+if(d.t>38) status="Warning";
 }
-
-// AUTO DEMO
+document.getElementById("totalGas").innerHTML=(tg/3).toFixed(2);
+document.getElementById("avgTemp").innerHTML=(tt/3).toFixed(1);
+document.getElementById("status").innerHTML=status;
+document.getElementById("tank").style.background=status==="Warning"?"red":"green";
+bubbles("p1"); bubbles("p2"); bubbles("p3");
+let ai="System stable."; if(status==="Warning") ai="AI Alert: Temperature rising. Cooling recommended."; if(tg>3) ai="AI Insight: Gas production optimal."; document.getElementById("aiText").innerHTML=ai;
+}
 setInterval(update,2000);
 setInterval(()=>{document.getElementById("time").innerHTML=new Date().toLocaleString()},1000);
 
-// ROTATING PRESENTATION TEXT
+// ROTATING PRESENTATION
 let demoMessages = [
 "Welcome to the SIRDC Biogas AI Digital Twin System",
 "This system converts waste into renewable energy",
@@ -270,26 +150,15 @@ let demoMessages = [
 "This solution supports sustainable energy innovation",
 "SIRDC is driving smart industrial transformation"
 ];
-let msgIndex = 0;
-function rotatePresentation(){
-    document.getElementById("presentationText").innerHTML = demoMessages[msgIndex];
-    msgIndex = (msgIndex + 1) % demoMessages.length;
-}
-setInterval(rotatePresentation, 4000);
+let msgIndex=0;
+function rotatePresentation(){document.getElementById("presentationText").innerHTML=demoMessages[msgIndex]; msgIndex=(msgIndex+1)%demoMessages.length;}
+setInterval(rotatePresentation,4000);
 
-// FULL SCREEN BUTTON
-function toggleFullScreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    if (document.exitFullscreen) document.exitFullscreen();
-  }
-}
+// FULL SCREEN
+function toggleFullScreen(){if(!document.fullscreenElement){document.documentElement.requestFullscreen();}else{if(document.exitFullscreen)document.exitFullscreen();}}
 
-// GENERATE QR CODE FROM LAUNCHER
-QRCode.toCanvas(document.getElementById('qr'), DASHBOARD_LAUNCHER_URL, {width:150}, function (error) {
-  if (error) console.error(error);
-});
+// QR CODE
+QRCode.toCanvas(document.getElementById('qr'), DASHBOARD_LAUNCHER_URL, {width:150}, function (error){if(error)console.error(error);});
 </script>
 
 </body>
